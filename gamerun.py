@@ -13,6 +13,5 @@ class Gamerun():
     
     def run(self):
         self.screen.fill("white")
-
         self.player.draw(self.screen)
         self.player.update()
