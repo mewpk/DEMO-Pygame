@@ -6,15 +6,19 @@ class Enemy(pygame.sprite.Sprite):
         super().__init__()
         self.screen_width, self.screen_height = screen_width , screen_height
         vec = pygame.math.Vector2
-        run1 = pygame.image.load('graphics/sprites/enemy/dragon_down1.png').convert_alpha()
-        run2 = pygame.image.load('graphics/sprites/enemy/dragon_down2.png').convert_alpha()
-        run3 = pygame.image.load('graphics/sprites/enemy/dragon_down3.png').convert_alpha()
-        run4 = pygame.image.load('graphics/sprites/enemy/dragon_down4.png').convert_alpha()
-        # run5 = pygame.image.load('graphics/sprites/enemy/run/5.png').convert_alpha()
-        # run6 = pygame.image.load('graphics/sprites/enemy/run/6.png').convert_alpha()
-        # run7 = pygame.image.load('graphics/sprites/enemy/run/7.png').convert_alpha()
-        # run8 = pygame.image.load('graphics/sprites/enemy/run/8.png').convert_alpha()
-        self.run = [run1, run2, run3, run4]
+        dragongold1 = pygame.image.load('graphics/sprites/enemy/dragon_down1.png').convert_alpha()
+        dragongold2 = pygame.image.load('graphics/sprites/enemy/dragon_down2.png').convert_alpha()
+        dragongold3 = pygame.image.load('graphics/sprites/enemy/dragon_down3.png').convert_alpha()
+        dragongold4 = pygame.image.load('graphics/sprites/enemy/dragon_down4.png').convert_alpha()
+        # dragongold5 = pygame.image.load('graphics/sprites/enemy/dragongold/5.png').convert_alpha()
+        # dragongold6 = pygame.image.load('graphics/sprites/enemy/dragongold/6.png').convert_alpha()
+        # dragongold7 = pygame.image.load('graphics/sprites/enemy/dragongold/7.png').convert_alpha()
+        # dragongold8 = pygame.image.load('graphics/sprites/enemy/dragongold/8.png').convert_alpha()
+        dragongold1 = pygame.transform.scale(dragongold1, (50, 50))
+        dragongold2 = pygame.transform.scale(dragongold2, (50, 50))
+        dragongold3 = pygame.transform.scale(dragongold3, (50, 50))
+        dragongold4 = pygame.transform.scale(dragongold4, (50, 50))
+        self.dragongold = [dragongold1, dragongold2, dragongold3, dragongold4]
 
         self.frame_index = 0
         self.image = self.run[self.frame_index]
