@@ -1,10 +1,12 @@
 import pygame
+from bullet import Bullet
 
 class Player(pygame.sprite.Sprite):
     def __init__(self, screen_width, screen_height):
         super().__init__()
         self.screen_width = screen_width
         self.screen_height = screen_height
+        self.wasd = 's'
 
         front1 = pygame.image.load("graphics/sprites/player/player_front1.png")
         front2 = pygame.image.load("graphics/sprites/player/player_front2.png")
@@ -50,6 +52,10 @@ class Player(pygame.sprite.Sprite):
         self.facing_right = False
 
         self.speed = 5
+
+        #bullet
+        self.bullet = pygame.sprite.Group() 
+        self.bullet_adding_time = 10       
     
     def get_input(self):
         keys = pygame.key.get_pressed()
@@ -58,11 +64,13 @@ class Player(pygame.sprite.Sprite):
             self.direction.x = -1
             self.facing_right = False
             self.running_x = True
+            self.wasd = 'a'
         elif keys[pygame.K_d]:
             self.left_right_animation()
             self.direction.x = 1
             self.facing_right = True
             self.running_x = True
+            self.wasd = 'd'
         else:
             self.direction.x = 0
             self.running_x = False
@@ -71,10 +79,12 @@ class Player(pygame.sprite.Sprite):
             self.back_animation()
             self.direction.y = -1
             self.running_y = True
+            self.wasd = 'w'
         elif keys[pygame.K_s]:
             self.front_animation()
             self.direction.y = 1
             self.running_y = True
+            self.wasd = 's'
         else:
             self.direction.y = 0
             self.running_y = False
@@ -90,7 +100,14 @@ class Player(pygame.sprite.Sprite):
     
     def idle_animation(self):
         if not self.running_x and not self.running_y:
-            self.image = self.front[0]
+            if self.wasd == 'w':
+                self.back_animation()
+            elif self.wasd == 'a':
+                self.left_right_animation()
+            elif self.wasd == 's' :
+                self.front_animation()
+            elif self.wasd == 'd' :
+                self.left_right_animation()
     
     def front_animation(self):
         self.frame_index += 0.1
@@ -124,8 +141,17 @@ class Player(pygame.sprite.Sprite):
         elif self.rect.bottom >= self.screen_height - 50:
             self.rect.bottom = self.screen_height - 50
     
+    def shooting(self):
+        self.bullet_adding_time -= 1
+        if self.bullet_adding_time == 0:
+            self.bullet.add(Bullet(self.rect.center, self.wasd))
+            self.bullet_adding_time = 50
+
     def update(self):
         self.get_input()
         self.moving()
         self.idle_animation()
         self.constraint()
+        self.shooting()
+
+        self.bullet.update()

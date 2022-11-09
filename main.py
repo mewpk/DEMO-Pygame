@@ -5,7 +5,6 @@ pygame.init()
 screen_width = 1280
 screen_height = 720
 screen = pygame.display.set_mode((screen_width, screen_height))
-
 clock = pygame.time.Clock()
 
 gamerun = Gamerun(screen, screen_width, screen_height)
@@ -57,6 +56,10 @@ def game():
 def rank():
     while True:
         screen.fill("black")
+
+        menu_button = pygame.Rect((screen_width - 200, screen_height/2 + 200), (100, 50))
+        pygame.draw.rect(screen, ('white'), menu_button)
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -64,6 +67,11 @@ def rank():
             elif event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
                 pygame.quit()
                 sys.exit()
+            
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                mx, my = pygame.mouse.get_pos()
+                if menu_button.collidepoint((mx, my)):
+                    menu()
 
         pygame.display.update()
         clock.tick(60)
