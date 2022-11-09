@@ -84,15 +84,18 @@ class Enemy(pygame.sprite.Sprite):
         if not self.running_x and not self.running_y:
             self.image = self.dragongold_down[0]
 
-    def running(self):
-            if self.rect.x > self.player_pos.x:
-                self.left_animation()             
-                
-            elif self.rect.x < self.player_pos.x:
-                self.right_animation()
+    def running_animation(self):
+        if self.rect.x > self.player_pos.x:
+            self.left_animation()             
+            
+        elif self.rect.x < self.player_pos.x:
+            self.right_animation()
 
-            elif self.rect.x == self.player_pos.x:
-                self.front_animation()
+        elif self.rect.x == self.player_pos.x:
+            self.front_animation()
+    
+    def moving(self):
+        pass
 
     def constraint(self):
         if self.rect.left <= 0:
@@ -105,5 +108,6 @@ class Enemy(pygame.sprite.Sprite):
             self.rect.bottom = self.screen_height
     
     def update(self):
-        self.running()
+        self.running_animation()
+        self.moving()
         self.constraint()

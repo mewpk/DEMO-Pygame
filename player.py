@@ -7,6 +7,7 @@ class Player(pygame.sprite.Sprite):
         self.screen_width = screen_width
         self.screen_height = screen_height
         self.wasd = 's'
+        self.bullet_type = 0
 
         front1 = pygame.image.load("graphics/sprites/player/player_front1.png")
         front2 = pygame.image.load("graphics/sprites/player/player_front2.png")
@@ -37,7 +38,6 @@ class Player(pygame.sprite.Sprite):
         right3 = pygame.transform.scale(right3, (50, 50))
         right4 = pygame.transform.scale(right4, (50, 50))
         self.right = [right1, right2, right3, right4]
-
 
         self.frame_index = 0
         self.image = self.front[self.frame_index]
@@ -144,7 +144,7 @@ class Player(pygame.sprite.Sprite):
     def shooting(self):
         self.bullet_adding_time -= 1
         if self.bullet_adding_time == 0:
-            self.bullet.add(Bullet(self.rect.center, self.wasd))
+            self.bullet.add(Bullet((self.rect.center), self.wasd, self.bullet_type))
             self.bullet_adding_time = 50
 
     def update(self):
@@ -155,3 +155,4 @@ class Player(pygame.sprite.Sprite):
         self.shooting()
 
         self.bullet.update()
+        

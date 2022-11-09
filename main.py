@@ -9,15 +9,28 @@ clock = pygame.time.Clock()
 
 gamerun = Gamerun(screen, screen_width, screen_height)
 
+def display_text(text, size, color, pos, screen):
+    font = pygame.font.Font('graphics/font/PressStart2P-vaV7.ttf', size)
+    text_surf = font.render(f'{text}', False, color)
+    text_rect = text_surf.get_rect(center = pos)
+    screen.blit(text_surf, text_rect)
+
 def menu():
     while True:
-        screen.fill("pink")
+        screen.fill("white")
 
-        game_button = pygame.Rect((screen_width/2 - 50, screen_height/2), (100, 50))
+        display_text('Cha Lam Chop Ngap Kun', 50, 'black', (screen_width/2, screen_height/2 - 130), screen)
+
+        display_text('65010731 Patsakorn Thong-un', 25, 'black', (screen_width/2, screen_height/2 - 20), screen)
+
+        game_button = pygame.Rect((screen_width/2 - 75, screen_height/2 + 70), (150, 60))
         pygame.draw.rect(screen, ('black'), game_button)
+        display_text('play', 30, 'white', (screen_width/2, screen_height/2 + 100), screen)
 
-        rank_button = pygame.Rect((screen_width/2 - 50, screen_height/2 + 70), (100, 50))
+        rank_button = pygame.Rect((screen_width/2 - 75, screen_height/2 + 170), (150, 60))
         pygame.draw.rect(screen, ('black'), rank_button)
+        display_text('rank', 30, 'white', (screen_width/2, screen_height/2 + 200), screen)
+
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -55,10 +68,14 @@ def game():
 
 def rank():
     while True:
-        screen.fill("black")
+        screen.fill("white")
 
-        menu_button = pygame.Rect((screen_width - 200, screen_height/2 + 200), (100, 50))
-        pygame.draw.rect(screen, ('white'), menu_button)
+        display_text('Rank', 40, 'black', (screen_width/2, 70), screen)
+
+
+        menu_button = pygame.Rect((screen_width - 250, screen_height/2 + 200), (150, 60))
+        pygame.draw.rect(screen, ('black'), menu_button)
+        display_text('back', 30, 'white', (screen_width - 175, screen_height/2 + 200 + 30), screen)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -78,6 +95,5 @@ def rank():
 
 def gameover():
     pass
-
 
 menu()

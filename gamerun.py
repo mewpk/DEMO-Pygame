@@ -1,29 +1,44 @@
-import pygame
+import pygame, sys
 from random import randint, choice
 from player import Player
 from enemy import Enemy
 
+def display_text(text, size, color, pos, screen):
+    font = pygame.font.Font('graphics/font/PressStart2P-vaV7.ttf', size)
+    text_surf = font.render(f'{text}', False, color)
+    text_rect = text_surf.get_rect(center = pos)
+    screen.blit(text_surf, text_rect)
 class Gamerun():
     def __init__(self, screen, screen_width, screen_height):
         self.screen = screen
         self.screen_width = screen_width
         self.screen_height = screen_height
 
-        #player
+        # bullet
+        self.bullet_type = 0
+
+        # player
         player_sprite = Player(self.screen_width, self.screen_height)
         self.player = pygame.sprite.GroupSingle(player_sprite)
-        self.score = 0
         self.life = 10
+
+        # money
+        self.money = 0
+        #self.money_upgrade_bullet = [20, 100, 500, 1000, 5000]
+        self.money_upgrade_bullet = [2, 1, 2, 1, 2, 'max']
+        self.money_upgrade_bullet_i = 0
         
         # enemy
         self.enemy_sprite = Enemy((choice([0, self.screen_width]), randint(0, self.screen_height)),self.screen_width, self.screen_height, self.player.sprite.rect)
         self.enemy = pygame.sprite.Group(self.enemy_sprite)
-        self.enemy_adding_time = randint(200, 300)
+        self.enemy_adding_time = randint(100, 200)
+
+        # button
+        self.button_money = pygame.Rect((self.screen_width - 150, 80), (80, 40))
 
     def enemy_move(self):
         for enemy in self.enemy:
             if enemy.rect.x > self.player.sprite.rect.x:
-                # if enemy.rect.y >=  self.player.sprite.rect.y:
                 enemy.rect.x -= 1
             elif enemy.rect.x < self.player.sprite.rect.x:
                 enemy.rect.x += 1
@@ -32,15 +47,19 @@ class Gamerun():
                 enemy.rect.y -= 1
             elif enemy.rect.y < self.player.sprite.rect.y:
                 enemy.rect.y += 1
+
     def add_enemy(self):
         self.enemy_adding_time -= 1
         if self.enemy_adding_time <= 0:
-            self.enemy.add(Enemy((choice([0, self.screen_width]), randint(0, self.screen_height)),self.screen_width, self.screen_height, self.player.sprite.rect))
-            self.enemy.add(Enemy((randint(0, self.screen_width), choice([0, self.screen_height])),self.screen_width, self.screen_height, self.player.sprite.rect))
-            self.enemy_adding_time = randint(200,300)
-            # self.get_enemy_adding_time_new()
-            # self.enemy_adding_time_new  = randint(80, 180)
-            # self.enemy_adding_time = self.enemy_adding_time_new
+            x_or_y = choice((0, 1))
+            if x_or_y == 1:
+                self.enemy.add(Enemy((choice([0, self.screen_width]), randint(0, self.screen_height)),self.screen_width, self.screen_height, self.player.sprite.rect))
+            elif x_or_y == 0:
+                self.enemy.add(Enemy((randint(0, self.screen_width), choice([0, self.screen_height])),self.screen_width, self.screen_height, self.player.sprite.rect))
+            self.enemy_adding_time = randint(100, 200)
+    
+    def display_money(self):
+        display_text(f'$ = {self.money}', 20, 'black', (self.screen_width - 150, 50), self.screen)
 
     def collision(self):
         if self.enemy:
@@ -53,8 +72,35 @@ class Gamerun():
             for bullet in self.player.sprite.bullet:
                 if pygame.sprite.spritecollide(bullet, self.enemy, True):
                     bullet.kill()
-                    self.score += 1
+                    self.money += 1
 
+    # button
+    def display_button(self):
+        pygame.draw.rect(self.screen, ('black'), self.button_money)
+        display_text(f'{self.money_upgrade_bullet[self.money_upgrade_bullet_i]}$', 20, 'white', (self.screen_width - 110, 100), self.screen)
+
+    def get_mouse_input(self):
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            elif event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+                pygame.quit()
+                sys.exit()
+            
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                mx, my = pygame.mouse.get_pos()
+                if self.button_money.collidepoint((mx, my)):
+                    if self.money_upgrade_bullet_i <= 4:
+                        if self.money >= self.money_upgrade_bullet[self.money_upgrade_bullet_i]:
+                            self.money -= self.money_upgrade_bullet[self.money_upgrade_bullet_i]
+
+                            self.player.sprite.bullet_type += 1
+                            if self.player.sprite.bullet_type  > 5:
+                                self.player.sprite.bullet_type  = 5
+
+                            self.money_upgrade_bullet_i += 1
+#20 100 500 1000 5000
     def run(self):
         self.screen.fill("white")
 
@@ -67,4 +113,9 @@ class Gamerun():
         self.enemy.update()
         self.enemy_move()
 
-        self.collision()
+        self.display_money()
+
+        self.display_button()
+        self.get_mouse_input()
+
+        self.collision()        
