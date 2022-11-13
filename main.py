@@ -54,6 +54,7 @@ def menu():
 
 def game():
     while True:
+        
         gamerun.run()
 
         for event in pygame.event.get():
