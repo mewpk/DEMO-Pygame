@@ -8,6 +8,8 @@ screen = pygame.display.set_mode((screen_width, screen_height))
 clock = pygame.time.Clock()
 
 gamerun = Gamerun(screen, screen_width, screen_height)
+music = pygame.mixer.music.load("graphics/music/bg.mp3")
+pygame.mixer.music.play(-1)
 
 def display_text(text, size, color, pos, screen):
     font = pygame.font.Font('graphics/font/PressStart2P-vaV7.ttf', size)

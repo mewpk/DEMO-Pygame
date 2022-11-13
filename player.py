@@ -9,6 +9,10 @@ class Player(pygame.sprite.Sprite):
         self.wasd = 's'
         self.bullet_type = 0
 
+        # music 
+        self.shoot = pygame.mixer.Sound("graphics/music/shoot.mp3")
+        self.shoot.set_volume(0.3)
+
         front1 = pygame.image.load("graphics/sprites/player/player_front1.png")
         front2 = pygame.image.load("graphics/sprites/player/player_front2.png")
         front3 = pygame.image.load("graphics/sprites/player/player_front3.png")
@@ -145,6 +149,8 @@ class Player(pygame.sprite.Sprite):
         self.bullet_adding_time -= 1
         if self.bullet_adding_time == 0:
             self.bullet.add(Bullet((self.rect.center), self.wasd, self.bullet_type))
+            pygame.mixer.Sound.play(self.shoot)
+            
             if self.bullet_type == 0:
                 self.bullet_adding_time = 50
             elif self.bullet_type == 1:

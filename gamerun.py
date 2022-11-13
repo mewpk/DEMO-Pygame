@@ -23,6 +23,10 @@ class Gamerun():
         self.player = pygame.sprite.GroupSingle(player_sprite)
         self.life = 10
 
+        #sound 
+        self.hit = pygame.mixer.Sound("graphics/music/hit.mp3")
+        self.hit.set_volume(2)
+        
         # money
         self.money = 0
         self.score = 0
@@ -110,6 +114,7 @@ class Gamerun():
         if self.player.sprite.bullet:
             for bullet in self.player.sprite.bullet:
                 if pygame.sprite.spritecollide(bullet, self.enemy, True):
+                    pygame.mixer.Sound.play(self.hit)
                     bullet.kill()
                     self.money += random.randrange(5,100) +self.enemy_kill
                     self.score += 1000
