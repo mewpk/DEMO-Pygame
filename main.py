@@ -69,10 +69,7 @@ def game():
 def rank():
     while True:
         screen.fill("white")
-
         display_text('Rank', 40, 'black', (screen_width/2, 70), screen)
-
-
         menu_button = pygame.Rect((screen_width - 250, screen_height/2 + 200), (150, 60))
         pygame.draw.rect(screen, ('black'), menu_button)
         display_text('back', 30, 'white', (screen_width - 175, screen_height/2 + 200 + 30), screen)

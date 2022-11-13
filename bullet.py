@@ -1,6 +1,6 @@
 import pygame
 import math
-
+import random
 class Bullet(pygame.sprite.Sprite):
     def __init__(self, pos, player_wasd, bullet_type):
         super().__init__()
@@ -9,17 +9,34 @@ class Bullet(pygame.sprite.Sprite):
         self.bullet_type = bullet_type
 
         if self.bullet_type == 0: # 0
-            bullet = pygame.image.load("graphics/sprites/player/player_front1.png")
+            bullet = pygame.image.load("graphics/sprites/bullet/a.png").convert_alpha()
         elif self.bullet_type == 1: # 20
-            bullet = pygame.image.load("graphics/sprites/enemy/dragon_down1.png")
+            bullet = pygame.image.load("graphics/sprites/bullet/b.png").convert_alpha()
         elif self.bullet_type == 2: # 100
-            bullet = pygame.image.load("graphics/sprites/player/player_front1.png")
+            bullet = pygame.image.load("graphics/sprites/bullet/c.png").convert_alpha()
         elif self.bullet_type == 3: # 500
-            bullet = pygame.image.load("graphics/sprites/enemy/dragon_down1.png")
+            bullet = pygame.image.load("graphics/sprites/bullet/d.png").convert_alpha()
         elif self.bullet_type == 4: # 1000
-            bullet = pygame.image.load("graphics/sprites/player/player_front1.png")
+            bullet = pygame.image.load("graphics/sprites/bullet/e.png").convert_alpha()
         elif self.bullet_type == 5: # 5000
-            bullet = pygame.image.load("graphics/sprites/enemy/dragon_down1.png")
+            number = random.randrange(1,9)
+            if number == 1 :
+                bullet = pygame.image.load("graphics/sprites/bullet/d1.png").convert_alpha()
+            elif number == 2:
+                bullet = pygame.image.load("graphics/sprites/bullet/d2.png").convert_alpha()
+            elif number == 3 :
+                bullet = pygame.image.load("graphics/sprites/bullet/d3.png").convert_alpha()
+            elif number == 4 :
+                bullet = pygame.image.load("graphics/sprites/bullet/d4.png").convert_alpha()
+            elif number == 5 :
+                bullet = pygame.image.load("graphics/sprites/bullet/d5.png").convert_alpha()
+            elif number == 6 :
+                bullet = pygame.image.load("graphics/sprites/bullet/d6.png").convert_alpha()
+            elif number == 7 :
+                bullet = pygame.image.load("graphics/sprites/bullet/d7.png").convert_alpha()
+            elif number == 8 :
+                bullet = pygame.image.load("graphics/sprites/bullet/d8.png").convert_alpha()
+
         self.image = bullet
         self.rect = self.image.get_rect(center = pos)
 
@@ -48,4 +65,4 @@ class Bullet(pygame.sprite.Sprite):
         
     def update(self):
         self.moving()
-        print(self.bullet_type)
+        # print(self.bullet_type)

@@ -145,7 +145,18 @@ class Player(pygame.sprite.Sprite):
         self.bullet_adding_time -= 1
         if self.bullet_adding_time == 0:
             self.bullet.add(Bullet((self.rect.center), self.wasd, self.bullet_type))
-            self.bullet_adding_time = 50
+            if self.bullet_type == 0:
+                self.bullet_adding_time = 50
+            elif self.bullet_type == 1:
+                self.bullet_adding_time = 30
+            elif self.bullet_type == 2:
+                self.bullet_adding_time = 20
+            elif self.bullet_type == 3:
+                self.bullet_adding_time = 15
+            elif self.bullet_type == 4:
+                self.bullet_adding_time = 10
+            elif self.bullet_type == 5:
+                self.bullet_adding_time = 5
 
     def update(self):
         self.get_input()
