@@ -1,0 +1,13 @@
+nameee, 2300
+name3, 2100
+name, 0
+test, 600
+testtest, 0
+name111, 0
+nameeeeeeeee, 0
+nameee, 0
+nametest, 900
+mew, 12900
+pw, 21800
+pookpook, 21800
+pookpook, 323000
