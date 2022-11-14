@@ -2,6 +2,8 @@ import pygame, sys
 from random import randint, choice
 from player import Player
 from enemy import Enemy
+from enemy2 import Enemy2
+from enemy3 import Enemy3
 import random
 
 def display_text(text, size, color, pos, screen):
@@ -57,21 +59,36 @@ class Gamerun():
     def add_enemy(self):
         self.enemy_adding_time -= 1
         if self.enemy_adding_time <= 0:
-            x_or_y = choice((0, 1))
+            x_or_y = random.randrange(1, 7)
             if x_or_y == 1:
                 self.enemy.add(Enemy((choice([0, self.screen_width]), randint(0, self.screen_height)),self.screen_width, self.screen_height, self.player.sprite.rect))
-            elif x_or_y == 0:
+            elif x_or_y == 2:
                 self.enemy.add(Enemy((randint(0, self.screen_width), choice([0, self.screen_height])),self.screen_width, self.screen_height, self.player.sprite.rect))
-            
+            elif x_or_y == 3 :
+                self.enemy.add(Enemy2((choice([0, self.screen_width]), randint(0, self.screen_height)),self.screen_width, self.screen_height, self.player.sprite.rect))
+            elif x_or_y == 4 :
+                self.enemy.add(Enemy2((randint(0, self.screen_width), choice([0, self.screen_height])),self.screen_width, self.screen_height, self.player.sprite.rect))
+            elif x_or_y == 5 :
+                self.enemy.add(Enemy3((choice([0, self.screen_width]), randint(0, self.screen_height)),self.screen_width, self.screen_height, self.player.sprite.rect))
+            elif x_or_y == 6 :
+                self.enemy.add(Enemy3((randint(0, self.screen_width), choice([0, self.screen_height])),self.screen_width, self.screen_height, self.player.sprite.rect))
             if self.bullet_type == 5 :
                 self.enemy_adding_time = 10
                 if random.randrange(0,3) == 0:
                     for i in range(1,5):
-                        x_or_y = choice((0, 1))
+                        x_or_y = random.randrange(1, 7)
                         if x_or_y == 1:
                             self.enemy.add(Enemy((choice([0, self.screen_width]), randint(0, self.screen_height)),self.screen_width, self.screen_height, self.player.sprite.rect))
-                        elif x_or_y == 0:
+                        elif x_or_y == 2:
                             self.enemy.add(Enemy((randint(0, self.screen_width), choice([0, self.screen_height])),self.screen_width, self.screen_height, self.player.sprite.rect))
+                        elif x_or_y == 3 :
+                            self.enemy.add(Enemy2((choice([0, self.screen_width]), randint(0, self.screen_height)),self.screen_width, self.screen_height, self.player.sprite.rect))
+                        elif x_or_y == 4 :
+                            self.enemy.add(Enemy2((randint(0, self.screen_width), choice([0, self.screen_height])),self.screen_width, self.screen_height, self.player.sprite.rect))
+                        elif x_or_y == 5 :
+                            self.enemy.add(Enemy3((choice([0, self.screen_width]), randint(0, self.screen_height)),self.screen_width, self.screen_height, self.player.sprite.rect))
+                        elif x_or_y == 6 :
+                            self.enemy.add(Enemy3((randint(0, self.screen_width), choice([0, self.screen_height])),self.screen_width, self.screen_height, self.player.sprite.rect))
             elif self.score >= 100000 :
                 self.enemy_adding_time = 30
             elif self.score >= 80000 :
@@ -90,27 +107,34 @@ class Gamerun():
                 self.enemy_adding_time = 130
             
             if random.randrange(0,5) == 0:
-                for i in range(1,5):
-                    x_or_y = choice((0, 1))
+                for i in range(1,7):
+                    x_or_y = random.randrange(1, 5)
                     if x_or_y == 1:
                         self.enemy.add(Enemy((choice([0, self.screen_width]), randint(0, self.screen_height)),self.screen_width, self.screen_height, self.player.sprite.rect))
-                    elif x_or_y == 0:
+                    elif x_or_y == 2:
                         self.enemy.add(Enemy((randint(0, self.screen_width), choice([0, self.screen_height])),self.screen_width, self.screen_height, self.player.sprite.rect))
-            
+                    elif x_or_y == 3 :
+                        self.enemy.add(Enemy2((choice([0, self.screen_width]), randint(0, self.screen_height)),self.screen_width, self.screen_height, self.player.sprite.rect))
+                    elif x_or_y == 4 :
+                        self.enemy.add(Enemy2((randint(0, self.screen_width), choice([0, self.screen_height])),self.screen_width, self.screen_height, self.player.sprite.rect))
+                    elif x_or_y == 5 :
+                        self.enemy.add(Enemy3((choice([0, self.screen_width]), randint(0, self.screen_height)),self.screen_width, self.screen_height, self.player.sprite.rect))
+                    elif x_or_y == 6 :
+                        self.enemy.add(Enemy3((randint(0, self.screen_width), choice([0, self.screen_height])),self.screen_width, self.screen_height, self.player.sprite.rect))
             
     
     def display_money(self):
         display_text(f'Money :{self.money} $', 20, 'black', (self.screen_width - 200, 50), self.screen)
     def display_score(self):
         display_text(f'Score :{self.score}', 20, 'black', (self.screen_width/2, 50), self.screen)
-
+    def display_hp(self):
+        display_text(f'HP :{self.life}', 20, 'black', (100, 50), self.screen)
     def collision(self):
         if self.enemy:
             for enemy in self.enemy:
                 if pygame.sprite.spritecollide(enemy, self.player, False):
                     enemy.kill()
                     self.life -= 1
-        
         if self.player.sprite.bullet:
             for bullet in self.player.sprite.bullet:
                 if pygame.sprite.spritecollide(bullet, self.enemy, True):
@@ -161,6 +185,7 @@ class Gamerun():
 
         self.display_money()
         self.display_score()
+        self.display_hp()
 
         self.display_button()
         self.get_mouse_input()

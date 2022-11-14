@@ -1,5 +1,6 @@
 import pygame
 from random import randint
+import random
 
 class Enemy(pygame.sprite.Sprite):
     def __init__(self, pos,screen_width,screen_height, player_pos):
@@ -50,6 +51,7 @@ class Enemy(pygame.sprite.Sprite):
         self.dragongold_right = [dragongold_right1, dragongold_right2, dragongold_right3, dragongold_right4]
 
         self.frame_index = 0
+        random
         self.image = self.dragongold_down[self.frame_index]
         self.rect = self.image.get_rect(center=(pos))
 
