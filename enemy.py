@@ -93,7 +93,12 @@ class Enemy(pygame.sprite.Sprite):
         elif self.rect.x < self.player_pos.x:
             self.right_animation()
 
-        elif self.rect.x == self.player_pos.x:
+        elif self.rect.x == self.player_pos.x and self.rect.y < self.player_pos.y:
+            self.front_animation()
+        
+        elif self.rect.x == self.player_pos.x and self.rect.y > self.player_pos.y:
+            self.back_animation()
+        elif self.rect.y == self.player_pos.y :
             self.front_animation()
     
     def moving(self):
