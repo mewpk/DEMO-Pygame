@@ -64,7 +64,8 @@ def display_rank():
 
 def menu():
     while True:
-        global game_status
+        global game_status,show
+        show = 0
 
         screen.fill("white")
 

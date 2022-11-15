@@ -11,3 +11,10 @@ mew, 12900
 pw, 21800
 pookpook, 21800
 pookpook, 323000
+praewa, 66600
+j, 66600
+p, 108400
+aaaaa, 5300
+, 1000
+rainbowi9, 99999999
+kkk, 31800
