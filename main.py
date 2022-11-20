@@ -6,15 +6,20 @@ screen_width = 1280
 screen_height = 720
 screen = pygame.display.set_mode((screen_width, screen_height))
 clock = pygame.time.Clock()
-gamerun = Gamerun(screen, screen_width, screen_height)
+gamerun = Gamerun(screen, screen_width, screen_height  )
 font = pygame.font.Font('graphics/font/PressStart2P-vaV7.ttf', 20)
 music = pygame.mixer.music.load("graphics/music/bg.mp3")
 pygame.mixer.music.play(-1)
 game_status = 1
 prev_player_score = 0
 new_player_score = 0
+
+
 scores = []
 rankscores = []
+
+
+
 show = 0
 def display_text(text, size, color, pos, screen):
     font = pygame.font.Font('graphics/font/PressStart2P-vaV7.ttf', size)
@@ -42,6 +47,7 @@ def ranking():
                 rankscores.insert(num,scores[num])
             file.flush()
             show = 1
+
 def display_rank():
     ranking()
     space = 0
@@ -133,7 +139,7 @@ def gameover():
     user_ip = ''
     text_box = pygame.Rect((screen_width/2 - 350/2, screen_height/2 - 20), (350, 50))
     active = False
-    while True:
+    while True: 
         global game_status, gamerun
         gamerun = Gamerun(screen, screen_width, screen_height)
         game_status = 1
@@ -180,4 +186,4 @@ def gameover():
         screen.blit(surf, (text_box.x + 5, text_box.y + 20))
         pygame.display.update()
         clock.tick(60)
-menu()
+menu()  

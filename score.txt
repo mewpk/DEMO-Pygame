@@ -19,3 +19,6 @@ aaaaa, 5300
 rainbowi9, 99999999
 kkk, 31800
 mmm, 170100
+ok, 123200
+, 566700
+eqrqwewq, 1200

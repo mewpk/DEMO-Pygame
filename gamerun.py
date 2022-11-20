@@ -82,8 +82,7 @@ class Gamerun():
                     [0, self.screen_height])), self.screen_width, self.screen_height, self.player.sprite.rect))
             if self.bullet_type == 5:
                 self.enemy_adding_time = 10
-                if random.randrange(0, 3) == 0:
-                    for i in range(1, 5):
+                for i in range(1, 5):
                         x_or_y = random.randrange(1, 7)
                         if x_or_y == 1:
                             self.enemy.add(Enemy((choice([0, self.screen_width]), randint(
@@ -165,7 +164,7 @@ class Gamerun():
                 if pygame.sprite.spritecollide(bullet, self.enemy, True):
                     pygame.mixer.Sound.play(self.hit)
                     bullet.kill()
-                    self.money += random.randrange(5, 70) + self.enemy_kill
+                    self.money += random.randrange(5, 100)
                     self.score += random.randrange(500, 1000,100)
                     self.enemy_kill += 1
     # button
