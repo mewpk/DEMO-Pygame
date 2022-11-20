@@ -21,7 +21,7 @@ class Enemy(pygame.sprite.Sprite):
         self.dragongold = [dragongold1, dragongold2, dragongold3, dragongold4]
 
         self.frame_index = 0
-        self.image = self.run[self.frame_index]
+        self.image = self.dragongold[self.frame_index]
         self.rect = self.image.get_rect(center=(pos))
 
         self.enemy_speed = 1
